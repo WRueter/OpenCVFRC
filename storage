@@ -1,0 +1,29 @@
+import numpy as np
+import cv2
+
+
+cap = cv2.VideoCapture(1)
+
+def draw_line_to_mouse(event,x,y,flags,param):
+    if event == cv2.EVENT_LBUTTONDOWN:
+        cv2.line(frame, (0,0), (x,y), (0,0,255), 5)
+
+frame = np.zeros((512,512,3), np.uint8)
+cv2.namedWindow('frame')
+cv2.setMouseCallback('frame', draw_line_to_mouse)
+
+#hsvValueMin: np.array(236,45,0)
+while(True):
+    ret, frame = cap.read()
+
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    colorImg = cv2.cvtColor(frame, cv2.IMREAD_COLOR)
+    
+    cv2.imshow('frame', colorImg)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyallwindows()
+
+['EVENT_FLAG_ALTKEY', 'EVENT_FLAG_CTRLKEY', 'EVENT_FLAG_LBUTTON', 'EVENT_FLAG_MBUTTON', 'EVENT_FLAG_RBUTTON', 'EVENT_FLAG_SHIFTKEY', 'EVENT_LBUTTONDBLCLK', 'EVENT_LBUTTONDOWN', 'EVENT_LBUTTONUP', 'EVENT_MBUTTONDBLCLK', 'EVENT_MBUTTONDOWN', 'EVENT_MBUTTONUP', 'EVENT_MOUSEHWHEEL', 'EVENT_MOUSEMOVE', 'EVENT_MOUSEWHEEL', 'EVENT_RBUTTONDBLCLK', 'EVENT_RBUTTONDOWN', 'EVENT_RBUTTONUP']
